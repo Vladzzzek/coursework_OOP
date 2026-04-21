@@ -19,7 +19,7 @@ public class Typist
     // The remaining three should be fairly obvious.
 
     private char typistSymbol;
-    private String typistName;
+    private final String typistName;
     private int typistProgress;
     private double typistAccuracy;
     private boolean isBurntOut;
