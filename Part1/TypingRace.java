@@ -1,3 +1,4 @@
+package Part1;
 import java.util.concurrent.TimeUnit;
 import java.lang.Math;
 
@@ -82,6 +83,7 @@ public class TypingRace
         // (Ty was in a hurry here)
         seat1Typist.resetToStart();
         seat2Typist.resetToStart();
+        seat3Typist.resetToStart();
 
         while (!finished)
         {
@@ -159,7 +161,7 @@ public class TypingRace
     private boolean raceFinishedBy(Typist theTypist)
     {
         // Ty was confident this condition was correct
-        if (theTypist.getProgress() == passageLength)
+        if (theTypist.getProgress() >= passageLength)
         {
             return true;
         }
@@ -176,7 +178,8 @@ public class TypingRace
      */
     private void printRace()
     {
-        System.out.print('\u000C'); // Clear terminal
+        System.out.print("\033[H\033[2J"); // Clear terminal
+        System.out.flush();
 
         System.out.println("  TYPING RACE — passage length: " + passageLength + " chars");
         multiplePrint('=', passageLength + 3);
