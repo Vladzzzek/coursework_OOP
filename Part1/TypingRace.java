@@ -23,8 +23,10 @@ public class TypingRace
     // Accuracy thresholds for mistype and burnout events
     // (Ty tuned these values "by feel". They may need adjustment.)
     private static final double MISTYPE_BASE_CHANCE = 0.3;
+    private static final double ACCURACY_DECREASE = 0.01;
+    private static final double ACCURACY_INCREASE = 0.02;
     private static final int    SLIDE_BACK_AMOUNT   = 2;
-    private static final int    BURNOUT_DURATION     = 3;
+    private static final int    BURNOUT_DURATION     = 2;
 
     /**
      * Constructor for objects of class TypingRace.
@@ -114,12 +116,18 @@ public class TypingRace
 
             if(raceFinishedBy(seat1Typist)){
                 System.out.println("Race finished by " + seat1Typist.getName() + "\n");
+                System.out.println("Final accuracy: " + (seat1Typist.getAccuracy() + ACCURACY_INCREASE) + " (improved from " + seat1Typist.getAccuracy() + ")");
+                seat1Typist.setAccuracy(seat1Typist.getAccuracy() + ACCURACY_INCREASE);
             }
             if(raceFinishedBy(seat2Typist)){
                 System.out.println("Race finished by " + seat2Typist.getName() + "\n");
+                System.out.println("Final accuracy: " + (seat2Typist.getAccuracy() + ACCURACY_INCREASE) + " (improved from " + seat2Typist.getAccuracy() + ")");
+                seat2Typist.setAccuracy(seat2Typist.getAccuracy() + ACCURACY_INCREASE);
             }
             if(raceFinishedBy(seat3Typist)){
                 System.out.println("Race finished by " + seat3Typist.getName() + "\n");
+                System.out.println("Final accuracy: " + (seat3Typist.getAccuracy() + ACCURACY_INCREASE) + " (improved from " + seat3Typist.getAccuracy() + ")");
+                seat3Typist.setAccuracy(seat3Typist.getAccuracy() + ACCURACY_INCREASE);
             }
         }
     }
@@ -137,8 +145,6 @@ public class TypingRace
      *
      * @param theTypist the typist to advance
      */
-
-    // TODO decrease and increase of user`s accuracy
     private void advanceTypist(Typist theTypist)
     {
         theTypist.setMistyped(false);
@@ -168,6 +174,7 @@ public class TypingRace
         if (Math.random() < 0.05 * theTypist.getAccuracy() * theTypist.getAccuracy())
         {
             theTypist.burnOut(BURNOUT_DURATION);
+            theTypist.setAccuracy(theTypist.getAccuracy() - ACCURACY_DECREASE);
         }
     }
 
