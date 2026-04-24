@@ -107,7 +107,7 @@ public class TypingRace
             } catch (Exception e) {}
         }
 
-        // TODO (Task 2a): Print the winner's name here
+        // Printing winner`s name
         if(finished){
 
             System.out.println("\nRACE FINISHED");
@@ -130,15 +130,19 @@ public class TypingRace
      * If the typist is burnt out, they recover one turn's worth and skip typing.
      * Otherwise:
      *   - They may type a character (advancing progress) based on their accuracy.
-     *   - They may mistype (sliding back) — the chance of a mistype should decrease
+     *   - They may mistype (sliding back) — the chance of mistype should decrease
      *     for more accurate typists.
      *   - They may burn out — more likely for very high-accuracy typists
      *     who are pushing themselves too hard.
      *
      * @param theTypist the typist to advance
      */
+
+    // TODO decrease and increase of user`s accuracy
     private void advanceTypist(Typist theTypist)
     {
+        theTypist.setMistyped(false);
+
         if (theTypist.isBurntOut())
         {
             // Recovering from burnout — skip this turn
@@ -156,6 +160,7 @@ public class TypingRace
         if (Math.random() < theTypist.getAccuracy() * MISTYPE_BASE_CHANCE)
         {
             theTypist.slideBack(SLIDE_BACK_AMOUNT);
+            theTypist.setMistyped(true);
         }
 
         // Burnout check — pushing too hard increases burnout risk
@@ -195,7 +200,7 @@ public class TypingRace
         System.out.print("\033[H\033[2J"); // Clear terminal
         System.out.flush();
 
-        System.out.println("  TYPING RACE — passage length: " + passageLength + " chars");
+        System.out.println("  TYPING RACE - passage length: " + passageLength + " chars");
         multiplePrint('=', passageLength + 3);
         System.out.println();
 
@@ -239,7 +244,12 @@ public class TypingRace
         if (theTypist.isBurntOut())
         {
             System.out.print('~');
-            spacesAfter--; // symbol + ~ together take two characters
+            spacesAfter--; // ~  takes 1 character
+        }
+        if (theTypist.hasMistyped()){
+            System.out.print("  [<]");
+            spacesAfter = spacesAfter - 5; // "  [<]" take 5
+
         }
 
         multiplePrint(' ', spacesAfter);
@@ -252,8 +262,11 @@ public class TypingRace
             System.out.print(theTypist.getName()
                 + " (Accuracy: " + theTypist.getAccuracy() + ")"
                 + " BURNT OUT (" + theTypist.getBurnoutTurnsRemaining() + " turns)");
-        }
-        else
+        } else if (theTypist.hasMistyped()) {
+            System.out.print(theTypist.getName()
+                    + " (Accuracy: " + theTypist.getAccuracy() + ")"
+                    + " <- just mistyped");
+        } else
         {
             System.out.print(theTypist.getName()
                 + " (Accuracy: " + theTypist.getAccuracy() + ")");

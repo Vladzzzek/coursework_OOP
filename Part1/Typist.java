@@ -25,6 +25,7 @@ public class Typist
     private double typistAccuracy;
     private boolean isBurntOut;
     private int burnoutTurnsRemaining;
+    private boolean mistyped;
 
 
 
@@ -45,6 +46,7 @@ public class Typist
         this.typistProgress = 0;
         this.isBurntOut = false;
         this.burnoutTurnsRemaining = 0;
+        this.mistyped = false;
     }
 
 
@@ -207,6 +209,16 @@ public class Typist
     {   
         typistSymbol = newSymbol;
 
+    }
+
+    public boolean hasMistyped()
+    {
+        return mistyped;
+    }
+
+    public void setMistyped(boolean mistyped)
+    {
+        this.mistyped = mistyped;
     }
 
 }
