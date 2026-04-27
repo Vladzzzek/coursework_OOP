@@ -42,7 +42,15 @@ public class Typist
     {   
         this.typistSymbol = typistSymbol;
         this.typistName = typistName;
-        this.typistAccuracy = typistAccuracy;
+
+        if(typistAccuracy < 0){
+            this.typistAccuracy = 0.0;
+        } else if (typistAccuracy > 1) {
+            this.typistAccuracy = 1.0;
+        }else{
+            this.typistAccuracy = typistAccuracy;
+        }
+
         this.typistProgress = 0;
         this.isBurntOut = false;
         this.burnoutTurnsRemaining = 0;

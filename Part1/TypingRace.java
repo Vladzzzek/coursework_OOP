@@ -222,7 +222,7 @@ public class TypingRace
 
         multiplePrint('=', passageLength + 3);
         System.out.println();
-        System.out.println("  [zz] = burnt out    [<] = just mistyped");
+        System.out.println("  [~] = burnt out    [<] = just mistyped");
     }
 
     /**
@@ -255,7 +255,7 @@ public class TypingRace
         }
         if (theTypist.hasMistyped()){
             System.out.print("  [<]");
-            spacesAfter = spacesAfter - 5; // "  [<]" take 5
+            spacesAfter = spacesAfter - 5; // "  [<]" take 5 characters
 
         }
 
